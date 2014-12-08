@@ -26,7 +26,11 @@ var home = require('./routes/home')
   , sell = require('./routes/sell')    // new added
   , bid = require('./routes/bid')    // new added
   , editPerson = require('./routes/editPerson')
+<<<<<<< HEAD
   , searchPerson = require('./routes/searchPerson')
+=======
+  , editProduct = require('./routes/editProduct')
+>>>>>>> update product
   ;     
   //addToCart = require('./routes/addToCart');
 
@@ -96,6 +100,8 @@ app.get('/toEditPassword', editPerson.toEditPassword);
 app.post('/editPassword', editPerson.editPassword);
 app.get('/toEditNameAddress', editPerson.toEditNameAddress);
 app.post('/editNameAddress', editPerson.editNameAddress);
+app.get('/toEditProduct', editProduct.toEditProduct);
+app.post('/editProduct', editProduct.editProduct);
 
 app.get('/show/:id', trans.show);
 app.post('/rate',trans.rate);
@@ -105,7 +111,13 @@ app.get('/user/:id', user.show);
 app.get('/toListProduct', admin.toListProduct);
 app.get('/listAuctions', admin.listAuctions);
 app.post('/searchProduct', search.searchProduct);
+<<<<<<< HEAD
 //app.post('/searchPerson', searchPerson.searchPerson);
+=======
+app.get('/toSearchPerson', searchPerson.toSearchPerson);
+app.post('/searchPerson', searchPerson.searchPerson);
+//app.post('/showProduct/:pid', product.showProduct);
+>>>>>>> update product
 
 app.get('/toProduct/:pid', product.showProduct);
 app.get('/toSell', sell.toSell);
