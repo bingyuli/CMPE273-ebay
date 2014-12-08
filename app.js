@@ -18,14 +18,15 @@ var home = require('./routes/home')
   , user = require('./routes/user')
   , activate = require('./routes/activate')
   , category = require('./routes/category')
-  , edit = require('./routes/edit')
   , shoppingcart = require('./routes/shoppingcart')
   , product = require('./routes/product')
   , trans = require('./routes/trans')
   , search = require('./routes/search') //new added
   , searchPerson = require('./routes/searchPerson')    // new added
   , sell = require('./routes/sell')    // new added
-  , bid = require('./routes/bid');     // new added
+  , bid = require('./routes/bid')    // new added
+  , editPerson = require('./routes/editPerson')
+  ;     
   //addToCart = require('./routes/addToCart');
 
 var app = express();
@@ -81,17 +82,18 @@ app.post('/sdeactivate', activate.sdeactivate);
 app.post('/sactivate', activate.sactivate);
 app.get('/signOut', index.signOut);
 app.get('/toHomepage', signIn.toHomepage);
-app.get('/toEditEmail', edit.toEditEmail);
-app.post('/editEmail', edit.editEmail);
+
 app.get('/toshoppingcart', shoppingcart.toshoppingcart);
 app.post('/checkout', shoppingcart.checkout);
 app.get('/payment', shoppingcart.payment);
 //app.get('/productDetail/:proid', product.productDetail);
 
-app.get('/toEditPassword', edit.toEditPassword);
-app.post('/editPassword', edit.editPassword);
-app.get('/toEditNameAddress', edit.toEditNameAddress);
-app.post('/editNameAddress', edit.editNameAddress);
+app.get('/toEditEmail', editPerson.toEditEmail);
+app.post('/editEmail', editPerson.editEmail);
+app.get('/toEditPassword', editPerson.toEditPassword);
+app.post('/editPassword', editPerson.editPassword);
+app.get('/toEditNameAddress', editPerson.toEditNameAddress);
+app.post('/editNameAddress', editPerson.editNameAddress);
 
 app.get('/show/:id', trans.show);
 app.post('/rate',trans.rate);

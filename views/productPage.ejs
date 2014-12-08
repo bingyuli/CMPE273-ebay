@@ -125,7 +125,12 @@
 	border-right:1px solid #666;
 	border-bottom:2px solid #999;
 	border-left:1px solid #ccc;
-	padding: 7px" alt="" src="<%=result[0].Product_img%>" id="gh-logo">		
+	padding: 7px" alt="" src="<%=result[0].Product_img%>" id="gh-logo">	
+
+	<%if (result[0].Product_seller_id==session.user.Person_ssn){%>
+	<a style=" margin-left:120px; margin-top:20px;" href="/toEditProduct" type="button" class="btn btn-primary btn-xs">Edit Product</a>
+	<%}%>
+	
       </div>
       <div class="col-xs-4 col-sm-6" style="width:750px;">
         <!--Level 2: .col-xs-4 .col-sm-6-->
