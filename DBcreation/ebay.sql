@@ -216,6 +216,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`TransHistory` (
   `TransHistory_time` TIMESTAMP NULL DEFAULT NULL,
   `TransHistory_type` CHAR(1) NULL DEFAULT NULL,
   `TransHistory_rate` DOUBLE(2,1) NULL DEFAULT '0.0',
+  `TransHistory_price` FLOAT NULL DEFAULT NULL,
   PRIMARY KEY (`TransHistory_id`),
   INDEX `fk_TransHistory_1_idx` (`TransHistory_Buyer_id` ASC),
   INDEX `fk_TransHistory_2_idx` (`TransHistory_Seller_id` ASC),
@@ -314,8 +315,8 @@ CREATE
 	ON SCHEDULE EVERY 1 MINUTE STARTS '2014-12-05 14:57:00' 
 	DO BEGIN
 		        -- Insert into transHistory of recently finished auction
-		INSERT INTO mydb.TransHistory (TransHistory_Buyer_id, TransHistory_Seller_id, TransHistory_Product_id, TransHistory_time, TransHistory_type)
-        SELECT Bid_customer_id, Product_seller_id, Product_id, Bid_time, '1'  FROM mydb.Product, mydb.Bid WHERE Product_bid_end_time<now() AND Product_bid_end =0 
+		INSERT INTO mydb.TransHistory (TransHistory_Buyer_id, TransHistory_Seller_id, TransHistory_Product_id, TransHistory_time, TransHistory_type, TransHistory_price)
+        SELECT Bid_customer_id, Product_seller_id, Product_id, Bid_time, '1', Bid_price  FROM mydb.Product, mydb.Bid WHERE Product_bid_end_time<now() AND Product_bid_end =0 
 					AND Product_id = Bid_Product_id AND (Bid_product_id, Bid_price) IN (SELECT Bid_product_id, Max(Bid_price) FROM mydb.Bid GROUP BY Bid_product_id);
         
         CREATE TABLE test AS
