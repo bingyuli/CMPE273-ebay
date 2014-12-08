@@ -8,7 +8,7 @@ var pool = mysql.createPool({
 	host:'localhost',
 	user:'root',
 	database:'mydb',
-	password: '5245193'
+	password: ''
 });
 
 //var sqlQuery = "insert into Person (Person_first_name, Person_last_name, Person_zip, Person_address, Person_state, Person_city, Person_ssn, Person_email, Person_pass) values " +
