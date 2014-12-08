@@ -53,7 +53,7 @@ exports.show = function(req, res){
 }
 
 exports.showBuyHistory = function(req, res){
-	var getUserInfo = "SELECT * FROM Person, Seller WHERE Person.Person_id = Seller.Person_id AND Person.Person_id = "+ req.session.user.Person_id;
+	var getUserInfo = "SELECT * FROM Person, Customer WHERE Person.Person_id = Customer.Person_id AND Person.Person_id = "+ req.session.user.Person_id;
 	var getBuyInfo = "SELECT * FROM TransHistory, Product, Customer WHERE Customer_id = TransHistory_Buyer_id AND TransHistory_Product_id = Product_id AND Customer.Person_id = "
 		+ req.session.user.Person_id;
 	
