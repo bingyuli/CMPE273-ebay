@@ -26,6 +26,7 @@ var home = require('./routes/home')
   , sell = require('./routes/sell')    // new added
   , bid = require('./routes/bid')    // new added
   , editPerson = require('./routes/editPerson')
+  , searchPerson = require('./routes/searchPerson')
   ;     
   //addToCart = require('./routes/addToCart');
 
@@ -104,8 +105,7 @@ app.get('/user/:id', user.show);
 app.get('/toListProduct', admin.toListProduct);
 app.get('/listAuctions', admin.listAuctions);
 app.post('/searchProduct', search.searchProduct);
-app.get('/toSearchPerson', searchPerson.toSearchPerson);
-app.post('/searchPerson', searchPerson.searchPerson);
+//app.post('/searchPerson', searchPerson.searchPerson);
 
 app.get('/toProduct/:pid', product.showProduct);
 app.get('/toSell', sell.toSell);
@@ -113,7 +113,8 @@ app.post('/afterSell', sell.afterSell);
 app.post('/afterAuctionSell', sell.afterAuctionSell);
 app.post('/toShoppingCart', shoppingcart.addToCart);
 app.post('/Product/bid/:id', bid.bid);
-
+app.get('/searchPerson', searchPerson.searchUser);
+app.get('/afterSearchUser', searchPerson.afterSearchUser);
 //app.post('/addToCart/:proid', addToCart.addToCart);
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+
+<!-- <center padding='60'><% for(var i=0; i<result.length;i++) 
+     { %>
+     
+Person Name: <%= result[i].Person_first_name %> <%= result[i].Person_last_name %>
+<p>City:  <%= result[i].Person_city %></p>
+<p>State: <%= result[i].Person_state %></p>
+<p>Email id: <%= result[i].Person_email %></p>
+<p>Person address: <%= result[i].Person_address %></p>
+<p>Person  : <%= result[i].Person_email %></p>
+
+<p><a href="/user/<%= result[i].Person_id%>"> See More information</a><br/>
+  
+  <% } %></center> --> 
+
+  <!DOCTYPE html>
 <html>
     <head>
       <title>Search Person Result</title>
@@ -8,7 +23,7 @@
 
     <body>
       <a href="/toHomepage">
-       <img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+       <img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo"></center>
       </a>
       <br>
       <br>    
@@ -17,26 +32,27 @@
           <h3 class="panel-title">Search Person Result</h3>
         </div>
         <div class="panel-body">
-          <table border="0" cellpadding="4" cellspacing="2" width="600">
-            <tbody>
-            <% for(var i=0; i<show.length; i++) { %>
-              <tr>
-                <td><%= show[i].Person_first_name%></td>
-                <td><%= show[i].Person_last_name%></td>
-                <td><%= show[i].Person_email%></td>
-                <td><%= show[i].Person_address%></td>
-                <td><%= show[i].Person_city%></td>
-                <td><%= show[i].Person_state%></td>
-                <td><%= show[i].Person_zip%></td>
-              </tr>
+          <table border="0" cellpadding="4" cellspacing="2" width="600" align='left'>
+            
+            <% for(var i=0; i<result.length; i++) { %>
+              
+                <tr><td>Person name: <%= result[i].Person_first_name%> <%= result[i].Person_last_name%></td></tr>
+                <tr><td> Person Email id: <%= result[i].Person_email%></td></tr>
+                <tr><td>Person address: <%= result[i].Person_address%></td></tr>
+                <tr><td>Person city: <%= result[i].Person_city%></td></tr>
+                <tr><td>Person State: <%= result[i].Person_state%></td></tr>
+                <tr><td> Person Zip: <%= result[i].Person_zip%></td></tr>
+                <tr><td><a href="/user/<%= result[i].Person_id%>"> See More information<td><br><br></tr>
+            
+              
             <%}%>
-            </tbody>
-          </table>      
+            
+          </table>   
         </div>
       </div>
     
       <div>
-        <a href="/toHomepage" type="button" class="btn btn-primary">Homepage</a> 
+   		<a href="/toAdminHome" type="button" class="btn btn-primary">Administrator Homepage</a> 
       </div>
       
       

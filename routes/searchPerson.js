@@ -118,7 +118,7 @@ exports.afterSearchUser= function(req, res){
 			});
 	}
 		else{
-			res.render('personresult', {
+			res.render('searchPersonResult', {
 				title:'Persons',
 				result: result
 			});
@@ -130,7 +130,7 @@ exports.afterSearchUser= function(req, res){
 exports.searchUser= function(req, res){
 	 
 	
-		res.render('searchUser',{
+		res.render('searchPersonPage',{
 			title:'searchUser'
 		});
 }
