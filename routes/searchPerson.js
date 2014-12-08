@@ -53,17 +53,17 @@ exports.afterSearchUser= function(req, res){
 							 	{
 							 if(sellA==1)
 								 	{
-								 	getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
+								 	getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
 								 	}
 							 else
-								 getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
+								 getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
 							 	}
-					else getUserInfo = "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"'";
+					else getUserInfo = "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"'";
 						}
-			else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"')";
+			else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"')";
 
 			}
-		else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"')";
+		else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_first_name)=UPPER('"+fn+"')";
 		}
 	else if(ln.length>0)
 	{
@@ -73,14 +73,14 @@ exports.afterSearchUser= function(req, res){
 						 	{
 						 if(sellA==1)
 							 	{
-							 	getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
+							 	getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
 							 	}
 						 else
-							 getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
+							 getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
 						 	}
-				else getUserInfo = "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"'";
+				else getUserInfo = "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"'";
 					}
-		else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_last_name)=UPPER('"+ln+"')";
+		else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Person_id and UPPER(Person_last_name)=UPPER('"+ln+"')";
 
 		}
 	else if(sellr.length>0)
@@ -89,11 +89,11 @@ exports.afterSearchUser= function(req, res){
 			 if (buyA==1)
 				 	{
 				 if(sellA==1)
-					 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
+					 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Person_id and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
 				  else
-					 getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
+					 getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Person_id and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
 				 	}
-			 else getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Seller_rate>'"+sellr+"'";
+			 else getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Person_id and Seller_rate>'"+sellr+"'";
 			 
 			}
 		
@@ -101,14 +101,14 @@ exports.afterSearchUser= function(req, res){
 		{
 			 if(sellA==1)
 				 	{
-				 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Person_buyActivate=1 and Person_sellActivate=1";
+				 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Person_id and Person_buyActivate=1 and Person_sellActivate=1";
 				 	}
 			 else
-				 getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Person_buyActivate=1";
+				 getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Person_id and Person_buyActivate=1";
 			 	}
 	else if(sellA==1)
 	{
-	 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Person_sellActivate=1";
+	 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Person_id and Person_sellActivate=1";
 	 	}
 	db.fetchData(function(err,result){
 		if (err){

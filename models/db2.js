@@ -5,5 +5,5 @@ module.exports = mysql.createPool({
 	host:'localhost',
 	user:'root',
 	database:'mydb',
-	password: ''
+	password: '5245193'
 });
