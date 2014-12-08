@@ -103,7 +103,7 @@ exports.showSellHistory = function(req, res){
 
 exports.showBidHistory = function(req, res) {
 	var id = req.session.user.Person_id;
-	var sql = "select * from bid b, Customer c, Person pe, Product p,TransHistory t  where t.TransHistory_Buyer_id = c.Customer_id and  b.Bid_customer_id=c.Customer_id and c.Person_id=pe.Person_id and b.Bid_product_id=p.Product_id and pe.Person_id="+id;
+	var sql = "SELECT * from Bid b, Customer c, Person pe, Product p,TransHistory t  where t.TransHistory_Buyer_id = c.Customer_id and  b.Bid_customer_id=c.Customer_id and c.Person_id=pe.Person_id and b.Bid_product_id=p.Product_id and pe.Person_id="+id;
 	db.fetchData(function(err, result){
 		if (err){
 			console.log("runn sql error = " +  sql );
