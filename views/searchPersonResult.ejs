@@ -22,11 +22,12 @@ Person Name: <%= result[i].Person_first_name %> <%= result[i].Person_last_name %
     </head>
 
     <body>
-      <a href="/toHomepage">
+      
        <img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo"></center>
-      </a>
+      
       <br>
-      <br>    
+      <br> 
+      <br>   
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title">Search Person Result</h3>
@@ -42,7 +43,7 @@ Person Name: <%= result[i].Person_first_name %> <%= result[i].Person_last_name %
                 <tr><td>Person city: <%= result[i].Person_city%></td></tr>
                 <tr><td>Person State: <%= result[i].Person_state%></td></tr>
                 <tr><td> Person Zip: <%= result[i].Person_zip%></td></tr>
-                <tr><td><a href="/user/<%= result[i].Person_id%>"> See More information<td><br><br></tr>
+                
             
               
             <%}%>
