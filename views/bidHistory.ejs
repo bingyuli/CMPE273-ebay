@@ -24,10 +24,21 @@
    				<h3 class="panel-title">Bid History</h3>
   			</div>
   			<div class="panel-body">
-  				---- Click product name for details ----<br>
-  				<% for(var i=0; i<result.length; i++) { %>
-  					<p>Product Name : <a href="/show/<%= result[i].TransHistory_id %>"><%= result[i].Product_name%></a> </p>
-				<%}%>			
+  				---- Following are all your bidding histories ----<br>
+  				<table width="50%" border="0">
+                    <tr>
+                       <td>Product Name </td>
+                       <td>  Bid Price  </td>
+                       <td>  Bid Time   </td>
+                    </tr>
+                    <% for(var i=0; i<result.length; i++) { %>
+  					<tr>
+  					    <td><a href="/toProduct/<%= result[i].Product_id %>"><%= result[i].Product_name%></a></td>
+  					    <td>$<%= result[i].Bid_price%></td>
+  					    <td><%= result[i].Bid_time%></td>
+  					</tr>
+				<%}%>	
+                </table>		
   			</div>
     	</div>
 		
