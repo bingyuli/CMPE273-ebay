@@ -34,15 +34,17 @@ Person Name: <%= result[i].Person_first_name %> <%= result[i].Person_last_name %
         </div>
         <div class="panel-body">
           <table border="0" cellpadding="4" cellspacing="2" width="600" align='left'>
-            
+            <th>Name</th> <th>Email</th> <th>Address</th> <th>City</th> <th>State</th> <th>Zip</th> 
             <% for(var i=0; i<result.length; i++) { %>
               
-                <tr><td>Person name: <%= result[i].Person_first_name%> <%= result[i].Person_last_name%></td></tr>
-                <tr><td> Person Email id: <%= result[i].Person_email%></td></tr>
-                <tr><td>Person address: <%= result[i].Person_address%></td></tr>
-                <tr><td>Person city: <%= result[i].Person_city%></td></tr>
-                <tr><td>Person State: <%= result[i].Person_state%></td></tr>
-                <tr><td> Person Zip: <%= result[i].Person_zip%></td></tr>
+                <tr>
+                	<td><%= result[i].Person_first_name%> <%= result[i].Person_last_name%></td>
+                	<td><%= result[i].Person_email%></td>
+                	<td><%= result[i].Person_address%></td>
+                	<td><%= result[i].Person_city%></td>
+                	<td><%= result[i].Person_state%></td>
+                	<td><%= result[i].Person_zip%></td>
+                </tr>
                 
             
               
