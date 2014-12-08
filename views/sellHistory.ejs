@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+  	<title>Buy History</title>
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  	</head>
+
+	<body>
+		<a href="/toHomepage">
+		<img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+    	</a>
+    	<br>
+    	<br>
+    	<br>
+    	<div>
+    	Hi, <%= session.user.Person_first_name %> <%= session.user.Person_last_name %>!
+    	</div>
+    	<div>
+    	Seller Rate : <%= presult[0].Seller_rate%><br>
+    	</div>
+    	<br>   	
+    	<div class="panel panel-primary">
+    		<div class="panel-heading">
+   				<h3 class="panel-title">Sell History</h3>
+  			</div>
+  			<div class="panel-body">
+  				
+  				---- Click product name for details ----<br>
+  				<% for(var i=0; i<sresult.length; i++) { %>
+  					<p><a href="/show/<%= sresult[i].TransHistory_id %>"><%= sresult[i].Product_name%></a> </p>
+				<%}%>		
+  			</div>
+    	</div>
+		
+		<div>
+   		<a href="/toHomepage" type="button" class="btn btn-primary">Homepage</a> 
+    	</div>
+    	<br>
+    	<br>
+	</body>
+</html>

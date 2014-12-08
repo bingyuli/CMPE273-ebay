@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sell Product</title>
+   	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript"> 
+            function displayForm(c){ 
+                if(c.value == "1"){ 
+                    document.getElementById("f1").style.display='table'; 				
+                    document.getElementById("f2").style.display='none'; 
+                } 
+                else if(c.value =="2"){ 
+                    document.getElementById("f1").style.display='none'; 
+                    document.getElementById("f2").style.display='table'; 
+                } 
+                else{ 
+                }  
+            }         
+</script>  
+	<script>
+	$(function(){
+  		$(".category").click(function(){
+  			var catid = $(this).attr("id");
+  			$.ajax({
+			  url: "/list/"+catid,
+			  type: "get",
+			  success : function(data){		  
+			  	var tmp = "";
+			  	//console.log(JSON.stringify(data));
+			  	for(var i= 0; i < data.length; i++){
+			  		tmp += "<form action=\"toProduct\" method=\"get\"><input type=\"hidden\" name=\"pid\" value=\""+data[i].Product_id+"\"><input class=\"btn btn-link\"  type=\"submit\" value=\""+data[i].Product_name+"\"></form>";
+			  	}
+			  	console.log(tmp);
+			  	$("#content_"+catid).html(tmp);
+			  }
+			});
+  		});
+  		
+  		$("#changeC").click(function(){
+  			var changeObj = $(this);
+  			var str = changeObj.html();
+  			var url = "";
+  			if(str == "Deactivate customer account"){
+  				url = "/bdeactivate/";
+  			}else{
+  				url = "/bactivate/";
+  			}
+  			
+  			$.ajax({
+  				url: url,
+  				type: "post",
+  				success: function(data){
+  					console.log("succ");
+  					if(url == "/bdeactivate/"){
+  					  //console.log("a");
+  						changeObj.html("Activate customer account");
+  					}else{
+  						//console.log("d");
+  						changeObj.html("Deactivate customer account");
+  					}
+  					
+  				}
+  			});
+  			
+  			
+  		});
+  		
+  		$("#changeS").click(function(){
+  			var changeObj = $(this);
+  			var str = changeObj.html();
+  			var url = "";
+  			if(str == "Deactivate seller account"){
+  				url = "/sdeactivate/";
+  			}else{
+  				url = "/sactivate/";
+  			}
+  			
+  			$.ajax({
+  				url: url,
+  				type: "post",
+  				success: function(data){
+  					console.log("succ");
+  					if(url == "/sdeactivate/"){
+  						console.log("a");
+  						changeObj.html("Activate seller account");
+  					}else{
+  						console.log("d");
+  						changeObj.html("Deactivate seller account");
+  					}
+  					
+  				}
+  			});
+  			
+  			
+  		});
+  		
+  		$("#options").change(function() {
+	 		$(this).css({'width':'400px'});
+	  	});
+  		
+  	});
+   				  
+
+  	
+  	
+	</script>
+  </head>
+  
+  <body>
+  	
+  	<nav class="navbar navbar-default" role="navigation">
+  		<div class="container-fluid">
+    	<!-- Brand and toggle get grouped for better mobile display -->
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+      			</button>
+      			<a class="navbar-brand" href="/myAccount">Hi, <%= session.user.Person_first_name %>!</a>
+    		</div>
+
+    		<!-- Collect the nav links, forms, and other content for toggling -->
+	    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<!-- 	      		<ul class="nav navbar-nav">
+	        		<li class="active"><a href="#">Sell<span class="sr-only">(current)</span></a></li>
+	        		<li><a href="#" id="changeC">Deactivate customer account</a>
+	        		</li>
+	        		<li><a href="#" id="changeS">Deactivate seller account</a></li>
+	        		
+	      		</ul> -->
+	      		
+	      		<ul class="nav navbar-nav navbar-right">
+	        		<li class="dropdown">
+          				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My eBay <span class="caret"></span></a>
+          				<ul class="dropdown-menu" role="menu">
+            				<li><a href="/myAccount">My account</a></li>
+            				<li><a href="/buyHistory">Purchase history</a></li>
+            				<li><a href="/sellHistory">Sell History</a></li>
+            				<li><a href="#">Bidding history</a></li>
+            				<li class="divider"></li>
+            				<li><a href="/signOut">Sign out</a></li>
+          				</ul>
+        			</li>
+	       			<li><a href="/toshoppingcart" class="glyphicon glyphicon-shopping-cart"></a></li>
+	       			
+	      		</ul>
+	    	</div><!-- /.navbar-collapse -->
+  		</div><!-- /.container-fluid -->
+	</nav>
+  	
+  	<img href="/toHomepage" width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:10px;left:30px" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+  	
+  	<form class="navbar-form navbar-left" role="search" style="position:absolute; top:60px;left:270px" method = "get" action = "/search">
+  		<div class="form-group" >Search products
+    		<input type="text" class="form-control" size="60" placeholder="Search">
+  		</div>
+  		<select id="options" style="width:170px; height: 35px">
+  			<option value="">All Categories</option>
+  			<% for(var i = 0; i < show.length;i++){%>					
+	        	<option value="<%= show[i].Category_id %>"><%= show[i].Category_name %></option>
+	       	<% } %>	
+		</select>
+  		<button type="submit" class="btn btn-default">Search</button>
+	</form>
+  		
+  	<br>
+  	<br>
+  	<br>
+  	<nav class="navbar navbar-default" role="navigation">
+  		<div class="container-fluid">
+    	<!-- Brand and toggle get grouped for better mobile display -->
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+      			</button>
+    		</div>
+  		
+  			<!-- Collect the nav links, forms, and other content for toggling -->
+	    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      		<ul class="nav navbar-nav">
+					
+					<% for(var i = 0; i < show.length;i++){%>					
+	        			<li class="dropdown">
+	        				<a class="category" id="<%= show[i].Category_id %>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+	        					<%= show[i].Category_name %>
+	        					<span class="caret"></span>
+	        				</a>
+	        				<ul class="dropdown-menu" role="menu">
+	        					<li><a href="#" id="content_<%= show[i].Category_id %>"></a></li>
+	        				</ul>
+	        			
+	        			</li>
+	        		<% } %>
+  						
+	      		</ul>	
+	    	</div>
+  			
+  		
+  		</div>
+  	
+  	</nav>
+
+	
+	<div style="margin-left:25px;">
+	<form> 
+            <label>Direct Sell<input value="1" type="radio" name="formselector" onclick="displayForm(this)"></label>     
+            <label>Auction to Sell<input value="2" type="radio" name="formselector" onclick="displayForm(this)"></label>     
+ </form> <br>
+     
+        <form  style ="display:none" id="form1"><label>Form 1<input type="text"/> </label></form>     
+         
+        <form  style ="display:none" id="form2"><label>Form 2<input type="text"/> </label></form>     
+<form  style ="display:none" id = "f1" method="post" action= "/afterSell">
+<table cellpadding="20" border="0">
+ <tr><td> Product Name:  </td><td>   <input type="text" name="Product_name"/></td></tr>
+ <tr> <td><p> </p></td><td><p> </p></td> </tr> 
+ <tr><td>Product Price:  </td><td>   <input type="text" name="Product_price"/></td></tr>
+  <tr> <td><p> </p></td><td><p> </p></td> </tr>
+
+  <tr><td> Product Quantity: </td><td> <input type="number" name="Product_quantity" min= "1" /></td></tr>
+ <tr> <td><p> </p></td><td><p> </p></td> </tr>
+  <tr><td>Product Info: </td><td>  <input type="text" name="Product_info"/></td></tr>
+ <tr> <td><p> </p></td><td><p> </p></td> </tr>  
+  <tr><td>Product Category: </td><td> <select name="Product_category">
+                      <option value="1">Collectibles&Arts</option>
+                      <option value="2">Electronics</option>
+                      <option value="3">Entertainment</option>
+                      <option value="4">Fashion</option>
+                      <option value="5">Home&Garden</option>
+                      <option value="6">Motors</option>
+                      <option value="7">SportingGoods</option>
+                      <option value="8">Toys&Hobbies</option>
+                      <option value="9">Other</option>
+                      </select></td></tr>
+ <tr> <td><p> </p></td><td><p> </p></td> </tr>
+					  <tr><td>Product Condition: </td><td> <select name="Product_condition">
+                      <option value="0">New</option>
+                      <option value="1">Used</option>
+                      </select></td></tr>
+ <tr> <td><p> </p></td><td><p> </p></td> </tr>	
+<tr><td>Product Image URL:</td> <td> <input type="text" name="Product_url"/></td></tr>
+   <tr> <td><p> </p></td><td><p> </p></td> </tr> 
+					  </table>
+         <input type="submit" class="btn btn-primary" value="Sell"/>
+</form>
+
+<form  style ="display:none;" id = "f2" method="post" action= "/afterAuctionSell" >
+  
+  <table cellpadding="20" border="0">
+  <tr><td>Product Name:</td><td>  <input type="text" name="Product_name"/></td></tr>
+   <tr> <td><p> </p></td><td><p> </p></td> </tr>
+  
+  
+  <tr><td>Product Auction Start Price: </td><td>    <input type="text" name="Product_start_price"/></td></tr>
+  <tr> <td><p> </p></td><td><p> </p></td> </tr>
+ <tr><td>Auction listing time(from now) </td><td><select name="Product_list_time">
+                      <option value="1">1 day</option>
+                      <option value="2">3 day</option>
+                      </select></td></tr>
+  <tr> <td><p> </p></td><td><p> </p></td> </tr>
+ <tr><td> Product Info:    </td><td>   <input type="text" name="Product_info"/></td></tr>
+ <tr> <td><p> </p></td><td><p> </p></td> </tr>
+ <tr><td> Product Category: </td><td> <select name="Product_category">
+                       <option value="1">Collectibles&Arts</option>
+                      <option value="2">Electronics</option>
+                      <option value="3">Entertainment</option>
+                      <option value="4">Fashion</option>
+                      <option value="5">Home&Garden</option>
+                      <option value="6">Motors</option>
+                      <option value="7">SportingGoods</option>
+                      <option value="8">Toys&Hobbies</option>
+                      <option value="9">Other</option>
+                      </select></td></tr>
+	 <tr> <td><p> </p></td><td><p> </p></td> </tr>
+ <tr><td> Product Condition: </td><td> <select name="Product_condition">
+                      <option value="0">New</option>
+                      <option value="1">Used</option>
+                      </select></td></tr>
+ <tr> <td><p> </p></td><td><p> </p></td> </tr>	
+<tr><td>Product Image URL:</td> <td> <input type="text" name="Product_url"/></td></tr>
+   <tr> <td><p> </p></td><td><p> </p></td> </tr> 
+          </table>
+
+ <input type="submit" class="btn btn-primary" value="Sell"/>
+ 
+ </form>
+<br>
+ <a href="/toHomepage" type="button" class="btn btn-primary">Homepage</a> 
+	</div>
+	
+	
+	
+	
+	
+  </body>
+</html>

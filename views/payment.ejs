@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homepage</title>
+   	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	
+	<script>
+	$(function(){
+	
+		$("#submit").click(function(){
+			var credit_number = $("#credit").val();
+			//alert(credit_number);
+			var result = validateNum(credit_number);
+			if( result == "num_error"){
+				alert("please input number only from 0 to 9 !");
+				return false;
+			}else if(result == "length_error"){
+				alert("please input number length = 16 !");
+				return false;
+			}
+			
+			validateEmpty($("#name").val());
+		});
+		
+		function validateEmpty(val){
+			if($.trim(val).length == 0){
+				alert("Cannot empty, please input something !");
+				return false;
+			}
+		}
+		
+		function validateNum(val){
+			var reg = /^\d+$/;
+			//console.log(reg.test(val));
+			if(!reg.test(val))
+				return "num_error";
+				
+			if(val.length !== 16){
+				return "length_error";
+			}
+			
+		}
+	});
+	</script>
+	</head>
+	
+	<body>
+		<% include ./navheader.ejs %>
+		<h1>Payment</h1>
+		<form method="post" action="checkout">
+			<input id="credit" type="text" placeholder="credit card number"><br/>
+			<input id="name" type="text" placeholder="firstname lastname"><br/>
+			<input id="submit" type="submit" value="place your order" class="btn btn-prime" />
+		</form>
+	</body>
+	
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fail</title>
+    
+  <style>
+  body {
+  	font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+  	color: #404040;
+  }
+  .container {
+  	margin: 80px auto;
+  	width: 640px;
+  }
+  
+  </style> 
+  </head>
+  <body>
+  	<div class = "container">
+  		<div class = "fail">
+  			<h1>Sign up failed...</h1>
+  			<h5>Oops! Something wrong happened.</h5>
+  			<h5><%= error%></h5>
+  			<br>
+  			<h5>Please sign up again.</h5>
+  		</div>
+  		<form method = "get" action = "/signUp">
+  		<p><input class = "signInAgain" type = "submit" name = "signInAgain" value = "Sign Up"/>
+  		</p>
+  		</form>
+  	
+  	
+  	</div>
+  </body>
+</html>

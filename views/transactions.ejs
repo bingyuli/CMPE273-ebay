@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+  		<title>Transaction Detail</title>
+    	<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  	
+  	</head>
+
+<body>
+
+		<a href="/toHomepage">
+			<img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-10px;left:0" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+    	</a>
+    	<br>
+    	<br>
+    	<br>
+    	<br>
+    	<br>
+    	<div class="panel panel-success">
+    		<div class="panel-heading">
+    			<h3 class="panel-title">Transaction Detail	
+  			</div>
+  			<div class="panel-body">
+    			<img src="<%= result[0].Product_img%>" alt="" class="img-thumbnail" width="200" height="150">
+				<%= result[0].Product_name%>
+				
+				<div>
+					<% if(result[0].Product_type== 1){%>
+					<h4>Bid price</h4> $<%= result[0].Product_price%>
+					<%}%>
+					<% if(result[0].Product_type== 0){%>
+					<h4>Price</h4> $<%= result[0].TransHistory_price%>
+					<%}%>
+				</div>
+				<div>				
+					<h4>Buyer name </h4><a href="/user/<%=result[0].bid %>"><%= result[0].bfname + " " +result[0].blname %></a>
+				</div>
+				<div>
+					<h4> Seller name</h4> 
+					<a href="/user/<%=result[0].sid %>"><%= result[0].sfname + " " +result[0].slname %></a> 
+				</div>
+				<div>
+					<h4> Transaction time</h4> 
+					<%= result[0].TransHistory_time%>
+				</div>
+				<div>
+					<h4> Transaction type</h4> 
+					<% if(result[0].TransHistory_type== 1){%>
+					Bought
+					<%}%>
+					<% if(result[0].TransHistory_type== 0){%>
+					BID
+					<%}%>
+				</div>
+				
+  			</div>
+
+    	</div>
+
+		
+    	<div class="panel panel-success">
+    		<div class="panel-heading">
+    			<h3 class="panel-title">Rate Seller</h3>
+  			</div>
+  			<div class="panel-body">
+    			<% if(result[0].TransHistory_rate== null && user.Customer_id == result[0].bid){%>
+				 <form method="post" action= "/rate">
+				  Rate this product: <input type="number" name="rate" min= "1" max = "5"/><br/>
+				  <input type="hidden" name="id" value = "<%=id%>"/><br/>
+				  <input type="submit" value="Rate"/>
+				 </form>
+				<%} else {%>
+				Rate you already gave: <%= result[0].TransHistory_rate %>
+				<%}%>
+    			
+    		</div>
+
+    	</div>
+
+</body>
+</html>

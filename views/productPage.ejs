@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homepage</title>
+   	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	
+	<script>
+	$(function(){
+  		$(".category").click(function(){
+  			var catid = $(this).attr("id");
+  			$.ajax({
+			  url: "/list/"+catid,
+			  type: "get",
+			  success : function(data){		  
+			  	var tmp = "";
+			  	//console.log(JSON.stringify(data));
+			  	for(var i= 0; i < data.length; i++){
+			  		tmp += "<form action=\"toProduct\" method=\"get\"><input type=\"hidden\" name=\"pid\" value=\""+data[i].Product_id+"\"><input class=\"btn btn-link\"  type=\"submit\" value=\""+data[i].Product_name+"\"></form>";
+			  	}
+			  	console.log(tmp);
+			  	$("#content_"+catid).html(tmp);
+			  }
+			});
+  		});
+  		
+  		$("#changeC").click(function(){
+  			var changeObj = $(this);
+  			var str = changeObj.html();
+  			var url = "";
+  			if(str == "Deactivate customer account"){
+  				url = "/bdeactivate/";
+  			}else{
+  				url = "/bactivate/";
+  			}
+  			
+  			$.ajax({
+  				url: url,
+  				type: "post",
+  				success: function(data){
+  					console.log("succ");
+  					if(url == "/bdeactivate/"){
+  					  //console.log("a");
+  						changeObj.html("Activate customer account");
+  					}else{
+  						//console.log("d");
+  						changeObj.html("Deactivate customer account");
+  					}
+  					
+  				}
+  			});
+  			
+  			
+  		});
+  		
+  		$("#changeS").click(function(){
+  			var changeObj = $(this);
+  			var changeSell = $("#sell");
+  			var str = changeObj.html();
+  			var url = "";
+  			if(str == "Deactivate seller account"){
+  				url = "/sdeactivate/";
+  			}else{
+  				url = "/sactivate/";
+  			}
+  			
+  			$.ajax({
+  				url: url,
+  				type: "post",
+  				success: function(data){
+  					console.log("succ");
+  					if(url == "/sdeactivate/"){
+  						console.log("a");
+  						changeObj.html("Activate seller account");
+  						changeSell.html("");
+  					}else{
+  						console.log("d");
+  						changeObj.html("Deactivate seller account");
+  						changeSell.html("Sell");
+  					}
+  					
+  				}
+  			});
+  			
+  			
+  		});
+  		
+  		$("#options").change(function() {
+	 		$(this).css({'width':'400px'});
+	  	});
+  		
+  	});
+   				  
+
+  	
+  	
+	</script>
+  </head>
+  
+  <body>
+  	
+  	<% include ./navheader.ejs %>
+  	
+  	<a href="/toHomepage">
+  	<img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:10px;left:30px" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+  	</a>
+  	
+  	
+  		
+  	<br>
+  	<br>
+  	<br>
+	
+	<div class="row" >
+  <div class="col-sm-12" style="margin-top:20px;">
+    <!--Level 1: .col-sm-9-->
+    <div class="row">
+      <div class="col-xs-8 col-sm-6" style="width:350px;">
+       <!-- Level 2: .col-xs-8 .col-sm-6-->
+		<img width="250" height="250" style=" margin-left:40px; background: #f8f8f8;
+	border-top:1px solid #ccc;
+	border-right:1px solid #666;
+	border-bottom:2px solid #999;
+	border-left:1px solid #ccc;
+	padding: 7px" alt="" src="<%=result[0].Product_img%>" id="gh-logo">		
+      </div>
+      <div class="col-xs-4 col-sm-6" style="width:750px;">
+        <!--Level 2: .col-xs-4 .col-sm-6-->
+		
+		<% if (result[0].Product_type==0) { %>
+		<h3>Product name: <%= result[0].Product_name%></h3>
+		<h4>Product price: $<%= result[0].Product_price%></h4>
+		<form method="post" action= "/toShoppingCart">
+		<input type="hidden" name="proid" value= "<%=result[0].Product_id%>">
+		<input type="hidden" name="sellerid" value= "<%=result[0].Product_seller_id%>">
+		<input type="submit" class="btn btn-primary" value="Add to cart"/>
+		</form><br>
+		<p>Product available quantity: <%if (result[0].Product_quantity==0){%>Sold Out
+                                         <%}else{%>
+                                          <%= result[0].Product_quantity%>
+                                           <%}%></p>
+        <p>Product condition: <%if (result[0].Product_condtion==0){%>Refurbished
+                                         <%}else{%>
+                                         <%= result[0].Product_condition==1%>
+                                          New
+                                           <%}%></p>   
+		<p>Seller: <%= result[0].Person_first_name + " "+ result[0].Person_last_name %></p>
+		<p>Seller rate is: <%= result[0].Seller_rate%></p>
+		<p>Product category: <%= result[0].Category_name%></p>
+		<p>Product info: <%= result[0].Product_info%></p>
+		
+		
+
+
+
+		<% }else{ %>
+		<h3>Product name: <%= result[0].Product_name%></h3>
+		<h4>Product Bidding start price: $<%= result[0].Product_bid_start_price%></h4>
+		<p>Product available quantity: <%if (result[0].Product_quantity==0){%>Sold Out
+                                         <%}else{%>
+                                          <%= result[0].Product_quantity%>
+                                           <%}%></p>
+		<p>Seller: <%= result[0].Person_first_name + " "+ result[0].Person_last_name %></p>
+		<p>Seller rate is: <%= result[0].Seller_rate%></p>
+		<p>Product category: <%= result[0].Category_name%></p>
+		<p>Product info: <%= result[0].Product_info%></p>
+		<% var now = new Date(); %>
+       <% if (result[0].Product_type==1 && result[0].Product_bid_end_time>now && result[0].Product_bid_end==0) {%>
+        <form method="post" name="form2" id="form2" action="/Product/bid/<%=result[0].Product_id%>">    
+        <input id="submit" name="submit" type="submit" value="BID!" />
+        <input id="mprice" name="myprice" type="text" />
+        <input type ="hidden" id="id" name="quantity" value="<%=result[0].Product_quantity %>" />
+        </form>
+        <h4> Current highest price: </h4>
+          <%if (bresult[0]!=null) {%>
+          <%=bresult[0].Bid_price%>
+          <%} else {%>
+           Nobody have bid on this yet.
+          <%}%>
+      <%} else if (result[0].Product_type==1 && result[0].Product_bid_end_time<now && result[0].Product_bid_end==0){%>
+           <form method="post" name="form2" id="form2" action="/Product/bid/<%=result[0].Product_id%>">    
+           <input id="submit" name="submit" type="submit" value="Auction Has End! In Processing" disabled/>
+           </form>
+           <h4> Current highest price: </h4>
+           current highest price: <%if (bresult[0]!=null) {%>
+           <%=bresult[0].Bid_price%>
+           <%} else {%>
+            Nobody have bid on this yet.
+           <%}%>
+       <%}else {%>
+            <form method="post" name="form2" id="form2" action="/bid/<%=result[0].Product_id%>">    
+            <input id="submit" name="submit" type="submit" value="Auction Has End! Please Check your Acount" disabled/>
+             </form>
+           <h4> Current highest price: </h4>
+            current highest price: <%if (bresult[0]!=null) {%>
+            <%=bresult[0].Bid_price%>
+            <%} else {%>
+             Nobody have bid on this yet.
+            <%}%>
+		
+		<% } %>
+		<%}%>
+		
+		
+		
+		
+      </div>
+    </div>
+  </div>
+</div>
+	
+  </body>
+</html>

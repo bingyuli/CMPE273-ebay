@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Search Person Result</title>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+
+    <body>
+      <a href="/toHomepage">
+       <img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+      </a>
+      <br>
+      <br>    
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Search Person Result</h3>
+        </div>
+        <div class="panel-body">
+          <table border="0" cellpadding="4" cellspacing="2" width="600">
+            <tbody>
+            <% for(var i=0; i<show.length; i++) { %>
+              <tr>
+                <td><%= show[i].Person_first_name%></td>
+                <td><%= show[i].Person_last_name%></td>
+                <td><%= show[i].Person_email%></td>
+                <td><%= show[i].Person_address%></td>
+                <td><%= show[i].Person_city%></td>
+                <td><%= show[i].Person_state%></td>
+                <td><%= show[i].Person_zip%></td>
+              </tr>
+            <%}%>
+            </tbody>
+          </table>      
+        </div>
+      </div>
+    
+      <div>
+        <a href="/toHomepage" type="button" class="btn btn-primary">Homepage</a> 
+      </div>
+      
+      
+  </body>
+</html>

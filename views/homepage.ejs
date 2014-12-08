@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homepage</title>
+   	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	
+	<script>
+	$(function(){
+  		$(".category").click(function(){
+  			var catid = $(this).attr("id");
+  			$.ajax({
+			  url: "/list/"+catid,
+			  type: "get",
+			  success : function(data){		  
+			  	var tmp = "";
+			  	//console.log(JSON.stringify(data));
+			  	for(var i= 0; i < data.length; i++){
+			  		tmp += "<a href=";
+			  		tmp += "/toProduct/"+data[i].Product_id + '>';
+			  		//tmp += "/toProduct>";
+			  		tmp +=data[i].Product_name+"</a><br>";
+			  	}
+			  	console.log(tmp);
+			  	$("#content_"+catid).html(tmp);
+			  }
+			});
+  		});
+  		
+  		$("#changeC").click(function(){
+  			var changeObj = $(this);
+  			var str = changeObj.html();
+  			var url = "";
+  			if(str == "Deactivate customer account"){
+  				url = "/bdeactivate/";
+  			}else{
+  				url = "/bactivate/";
+  			}
+  			
+  			$.ajax({
+  				url: url,
+  				type: "post",
+  				success: function(data){
+  					console.log("succ");
+  					if(url == "/bdeactivate/"){
+  					  //console.log("a");
+  						changeObj.html("Activate customer account");
+  					}else{
+  						//console.log("d");
+  						changeObj.html("Deactivate customer account");
+  					}
+  					
+  				}
+  			});
+  			
+  			
+  		});
+  		
+  		$("#changeS").click(function(){
+  			var changeObj = $(this);
+  			var changeSell = $("#sell");
+  			var str = changeObj.html();
+  			var url = "";
+  			if(str == "Deactivate seller account"){
+  				url = "/sdeactivate/";
+  			}else{
+  				url = "/sactivate/";
+  			}
+  			
+  			$.ajax({
+  				url: url,
+  				type: "post",
+  				success: function(data){
+  					console.log("succ");
+  					if(url == "/sdeactivate/"){
+  						console.log("a");
+  						changeObj.html("Activate seller account");
+  						changeSell.html("");
+  					}else{
+  						console.log("d");
+  						changeObj.html("Deactivate seller account");
+  						changeSell.html("Sell");
+  					}
+  					
+  				}
+  			});
+  			
+  			
+  		});
+  		
+  		
+  		
+  	});
+   				  
+
+  	
+  	
+	</script>
+  </head>
+  
+  <body>
+  	
+  	<% include ./navheader.ejs %>
+  	
+  	<img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:10px;left:30px" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+  	
+  	<form class="navbar-form navbar-left" role="search" style="position:absolute; top:60px;left:270px" method = "post" action = "/searchProduct">
+  		<div class="form-group" >Search products
+    		<input name="pname" type="text" class="form-control" size="60" placeholder="Search">
+  		</div>
+  		<select name="cat" id="options" style="width:170px; height: 35px">
+
+  			<% for(var i = 0; i < show.length;i++){%>					
+	        	<option value="<%= show[i].Category_id %>"><%= show[i].Category_name %></option>
+	       	<% } %>	
+		</select>
+  		<button type="submit" class="btn btn-default">Search</button>
+	 </form>
+  		
+  	<br>
+  	<br>
+  	<br>
+  	<nav class="navbar navbar-default" role="navigation">
+  		<div class="container-fluid">
+    	<!-- Brand and toggle get grouped for better mobile display -->
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+      			</button>
+    		</div>
+  		
+  			<!-- Collect the nav links, forms, and other content for toggling -->
+	    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      		<ul class="nav navbar-nav">
+					
+					<% for(var i = 0; i < show.length;i++){%>					
+	        			<li class="dropdown">
+	        				<a class="category" id="<%= show[i].Category_id %>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+	        					<%= show[i].Category_name %>
+	        					<span class="caret"></span>
+	        				</a>
+	        				<ul class="dropdown-menu" role="menu">
+	        					<li><a href="#" id="content_<%= show[i].Category_id %>"></a></li>
+	        				</ul>
+	        			
+	        			</li>
+	        		<% } %>
+  						
+	      		</ul>	
+	    	</div>
+  			
+  		
+  		</div>
+  	
+  	</nav>
+
+  	<img width="1400" height="650" position:absolute; top:100px;left:0px" alt="" src="https://lh6.googleusercontent.com/DPVBddQHhinjDqAzmiUXTHuHYqxAH-Pa5budjfDT3egFMR5DEQ24UtZHqavu9CJnOxTuf6Nezi0=w2508-h976">
+  	
+  	
+  </body>
+</html>

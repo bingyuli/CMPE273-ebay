@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delete Customer</title>
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  </head>
+  <body>
+  	<img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+    <br>
+    <br>
+    <div><h2> Deactivate a customer! </h2></div>
+	<div><h3>All customers are listed below: </h3></div>
+	<div>
+  		<table class="table table-striped">
+  			<th>Name</th> <th>Deactivate</th>
+  		<% 
+  		if(show != null) {
+  		
+  			for(var i = 0; i < show.length;i++){%>
+  				<tr>
+  					<td><%= show[i].Person_first_name %>, <%= show[i].Person_last_name %></td>
+  					<td>
+  						<span>
+  							<form action ="/deactivateC/<%=show[i].Person_id%>" method="post">
+  								<input type="submit" class="btn btn-primary btn-xs" name = "deactivateC" value = "Deactivate"/>
+  							</form>
+  						</span>
+  					</td>
+  				</tr> 
+  			<% } %>	
+  		<% }else{System.out.println("null");} %>
+  		</table>
+   	</div>   	
+   	
+   	
+   	<div>
+   		<a href="/toAdminHome" type="button" class="btn btn-primary">Administrator Homepage</a> 
+    </div>	
+	
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+  		<title>Transaction Detail</title>
+    	<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  	
+  	</head>
+
+<body>
+
+		<a href="/toHomepage">
+			<img width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-10px;left:0" alt="" src="http://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+    	</a>
+    	<br>
+    	<br>
+    	<br>
+    	<br>
+    	<br>
+    	<div class="panel panel-success">
+    		<div class="panel-heading">
+    			<h2 class="panel-title">User Info</h2>
+  			</div>
+  			<div class="panel-body">
+    			<div>
+    				<h4> USER NAME </h4> 
+					<%= result[0].Person_first_name + " " +result[0].Person_last_name%>
+    			</div>
+    			<div>
+    				<h4> USER EMAIL ADDRESS</h4> 
+					<%= result[0].Person_email%>
+    			</div>
+    			<div>
+    				<h4> USER SELL RATE</h4> 
+					<%= result[0].Seller_rate%>
+    			</div>
+  			</div>
+
+    	</div>
+	
+</body>
+</html>
