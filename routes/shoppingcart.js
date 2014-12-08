@@ -82,7 +82,7 @@ exports.payment = function(req, res){
 
 function insertToTran(pid, callback){
 	//var sql= "INSERT INTO TransHistory (TransHistory_Product_id, TransHistory_Buyer_id, TransHistory_Seller_id, TransHistory_time, TransHistory_type) SELECT Item_product_id, Item_person_id, Item_seller_id, now(), 1 FROM Shoppingcart where Item_person_id="+pid;
-	var sql= "INSERT INTO TransHistory (TransHistory_Product_id, TransHistory_Buyer_id, TransHistory_Seller_id, TransHistory_time, TransHistory_type, TransHistory_price) SELECT Item_product_id, Customer.Customer_id, Item_seller_id, now(), 1, Product_price" 
+	var sql= "INSERT INTO TransHistory (TransHistory_Product_id, TransHistory_Buyer_id, TransHistory_Seller_id, TransHistory_time, TransHistory_type, TransHistory_price) SELECT Item_product_id, Customer.Customer_id, Item_seller_id, now(), 0, Product_price" 
 		+ " FROM Customer, Shoppingcart, Product where Item_product_id = Product.Product_id AND Customer.Person_id = Shoppingcart.Item_person_id AND Item_person_id="+pid;
 	exe(sql, function(result){
 		callback(result);
