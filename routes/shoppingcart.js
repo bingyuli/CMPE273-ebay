@@ -50,7 +50,7 @@ exports.toshoppingcart = function(req,res){
 		}
 		//res.send(results);
 		console.log(JSON.stringify(results));
-		res.render('shoppingCart', {
+		res.render('shoppingcart', {
 			title : 'Ebay',
 			sc : results,
 			total:total
