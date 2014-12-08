@@ -1,67 +1,137 @@
-var ejs = require('ejs');
-var db = require('../models/db2.js');
-var db1 = require('../models/db.js');
+var db = require('../models/db.js');
 
-exports.toSearchPerson = function(req, res) {
-	res.render('searchPersonPage', {
-		title : 'Ebay'
-	});
-}
-
-exports.searchPerson = function(req, res) {
-
-	var email = req.param("email");
-	var fn = req.param("firstname");
-	var ln = req.param("lastname");
-	var address = req.param("address");
-	var city = req.param("city");
-	var state = req.param("state");
-	var zip = req.param("zip");
-
-	console.log("new email is::" + email + "new first name is::"+ fn 
-		+ "; new last name is ::" + ln + "new address is::"+ address 
-		+ "; new city is ::" + city + "new state is::"+ state 
-		+ "; new zip is ::" + zip);
+exports.showUser = function(req, res){
+	var getUserInfo = "SELECT * FROM Person, Seller WHERE Person.Person_id = Seller.Person_id AND Person.Person_id = "+ req.session.user.Person_id;
+	var getSellInfo = "SELECT * FROM TransHistory, Product, Seller WHERE Seller_id = TransHistory_Seller_id AND TransHistory_Product_id = Product_id AND Seller.Person_id = "
+		+ req.session.user.Person_id;
+	var getBuyInfo = "SELECT * FROM TransHistory, Product, Customer WHERE Customer_id = TransHistory_Buyer_id AND TransHistory_Product_id = Product_id AND Customer.Person_id = "
+		+ req.session.user.Person_id;
 	
-
-	if(email.length > 0 || fn.length > 0 || ln.length > 0
-	 ||address.length > 0 ||city.length > 0|| state.length > 0) {
-		var sql = " SELECT * FROM Person WHERE ( Person_email = '" + email
-				+ "'OR Person_first_name = '" + fn
-				+ "'OR Person_last_name = '" + ln
-				+ "'OR Person_address = '" + address
-				+ "'OR Person_city = '" + city
-				+ "'OR Person_state = '" + state
-				+ "'OR Person_zip = '" + zip
-				+ "' );";
-
-		console.log("sql::" + sql);
-		db.getConnection(function(err, connection) {
-			var query = connection.query(sql, function(err, results) {
-				if(err){
-					console.log("err message: " + err.message);
-				}else{
-					//callback(err, results);
-					console.log("info:"+results);
-					console.log("\nConnection closed...");
-					connection.release();
-			
-					console.log("~~in session the email is::" + req.session.user.Person_email
-						+ ", the first name is::" + req.session.user.Person_first_name
-						+ ", the last name is::" + req.session.user.Person_last_name
-						+ ", the address is::" + req.session.user.Person_address
-						+ ", the city is::" + req.session.user.Person_city
-						+ ", the state is::" + req.session.user.Person_state
-						+ ", the zip is::" + req.session.user.Person_zip
-						);
-
-					res.render('searchPersonResult', {
-                    	title: 'Search Person Result',
-                    	show: results
-                	});
-
-				}
-			});
-		});
-	}
+	db.fetchData(function(err,presult){
+		if (err)
+			throw err;
+		else{
+			db.fetchData(function(err,sresult){
+		                if (err)
+			                throw err;
+		                else{
+		                	db.fetchData(function(err,bresult){
+				                if (err)
+					                throw err;
+				                else{
+					                res.render('myaccount', {
+			                        title: 'My Account',
+				                    user: req.session.user,   
+				                    presult: presult,
+		                            sresult: sresult,
+		                            bresult: bresult
+			                        });
+			        }},getBuyInfo);
+	        }},getSellInfo);	    
+	};	    
+	},getUserInfo);
 }
+
+exports.afterSearchUser= function(req, res){
+	var fn = req.param("first_name");
+	var ln = req.param("last_name");
+	var sellr = req.param("seller_rating");
+	
+	var sellA= req.param("sellActivate");
+	var buyA = req.param("buyActivate")
+	console.log(buyA);
+	console.log(sellA);
+	var getUserInfo;
+
+	if(fn.length>0)
+		{	
+		if(ln.length>0)
+			{
+			if(sellr.length>0)
+				{
+					if (buyA==1)
+							 	{
+							 if(sellA==1)
+								 	{
+								 	getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
+								 	}
+							 else
+								 getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
+							 	}
+					else getUserInfo = "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"'";
+						}
+			else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"') and UPPER(Person_last_name)=UPPER('"+ln+"')";
+
+			}
+		else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_first_name)=UPPER('"+fn+"')";
+		}
+	else if(ln.length>0)
+	{
+		if(sellr.length>0)
+			{
+				if (buyA==1)
+						 	{
+						 if(sellA==1)
+							 	{
+							 	getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
+							 	}
+						 else
+							 getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
+						 	}
+				else getUserInfo = "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_last_name)=UPPER('"+ln+"') and Seller_rate>'"+sellr+"'";
+					}
+		else getUserInfo= "select Distinct * from Person as P, Seller as S where P.Person_id=S.Seller_id and UPPER(Person_last_name)=UPPER('"+ln+"')";
+
+		}
+	else if(sellr.length>0)
+		{
+		
+			 if (buyA==1)
+				 	{
+				 if(sellA==1)
+					 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Seller_rate>'"+sellr+"' and Person_buyActivate=1 and Person_sellActivate=1";
+				  else
+					 getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Seller_rate>'"+sellr+"' and Person_buyActivate=1";
+				 	}
+			 else getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Seller_rate>'"+sellr+"'";
+			 
+			}
+		
+	else if( buyA==1)
+		{
+			 if(sellA==1)
+				 	{
+				 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Person_buyActivate=1 and Person_sellActivate=1";
+				 	}
+			 else
+				 getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Person_buyActivate=1";
+			 	}
+	else if(sellA==1)
+	{
+	 	getUserInfo= "select * from Person as P, Seller as S where P.Person_id=S.Seller_id and Person_sellActivate=1";
+	 	}
+	db.fetchData(function(err,result){
+		if (err){
+			throw res.render('errorPage', {
+				error: 'Either no Person is found with the search categories or an error occured with'
+				
+			});
+	}
+		else{
+			res.render('personresult', {
+				title:'Persons',
+				result: result
+			});
+			}
+	},getUserInfo);	
+}
+
+
+exports.searchUser= function(req, res){
+	 
+	
+		res.render('searchUser',{
+			title:'searchUser'
+		});
+}
+	

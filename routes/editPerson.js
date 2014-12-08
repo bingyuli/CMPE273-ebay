@@ -253,7 +253,7 @@ exports.editNameAddress = function(req, res) {
 						                            bresult: bresult
 							                        });
 							        }},getBuyInfo);
-					        }},getSellInfo);
+						     }},getSellInfo);
 						}
 					},getUserInfo);
 				}
