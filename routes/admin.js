@@ -134,10 +134,13 @@ exports.listSellers = function(req, res) {
 }
 
 function getAuctions(callback) {
-	var sql = "select p.Product_name, pe.Person_first_name, pe.Person_last_name, p.Product_bid_start_price, p.Product_bid_start_time, " +
+	/*var sql = "select p.Product_name, pe.Person_first_name, pe.Person_last_name, p.Product_bid_start_price, p.Product_bid_start_time, " +
 			"p.Product_bid_end_time, p.Product_bid_end, p.Product_img " +
 			"from Bid b, Product p, Seller s, Person pe " +
-			"where b.Bid_product_id=p.Product_id and P.Product_seller_id=s.Seller_id and s.Seller_id = pe.Person_id";
+			"where b.Bid_product_id=p.Product_id and p.Product_seller_id=s.Seller_id and s.Seller_id = pe.Person_id";*/
+	var sql = "select p.Product_name, pe.Person_first_name, pe.Person_last_name, p.Product_bid_start_price, p.Product_bid_start_time, "+
+	         "p.Product_bid_end_time, p.Product_bid_end FROM Product p, Seller s, Person pe "+
+	         "WHERE p.Product_seller_id=s.Seller_id AND s.Person_id = pe.Person_id AND p.Product_type = 1";
 	console.log("sql is :::"+sql);
 	db.getConnection(function(err, connection) {
 		var query = connection.query(sql, function(err, result) {

@@ -313,7 +313,7 @@ BEGIN
 USE `mydb` $$
 CREATE 
 	EVENT `Auction_end` 
-	ON SCHEDULE EVERY 1 MINUTE STARTS '2014-12-05 14:57:00' 
+	ON SCHEDULE EVERY 1 MINUTE STARTS '2014-12-08 14:15:00' 
 	DO BEGIN
 		        -- Insert into transHistory of recently finished auction
 		INSERT INTO mydb.TransHistory (TransHistory_Buyer_id, TransHistory_Seller_id, TransHistory_Product_id, TransHistory_time, TransHistory_type, TransHistory_price)

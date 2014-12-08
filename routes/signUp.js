@@ -28,12 +28,14 @@ exports.afterSignUp = function(req, res) {
 		    break;
 		  }
 		}
-	if(!/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/.test(ssn)){
+	var regZip = new RegExp("^\\d{5}(-\\d{4})?$");
+	var regSsn = new RegExp("^\\d{9}");
+	if(!regSsn.test(ssn)){
 		res.render('failSignUp',{
 			error: 'invalid ssn format'
 		})
 	}
-	if(!(/[0-9][0-9][0-9][0-9][0-9]/.test(zip) || (/[0-9][0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/.test(zip)))){
+	if(!regZip.test(zip)){
 		res.render('failSignUp',{
 			error: 'invalid zip format'
 		})

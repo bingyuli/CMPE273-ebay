@@ -55,7 +55,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-//app.get('/', routes.index);
+app.get('/', signIn.signIn);
 //app.get('/users', user.list);
 app.get('/signUp', signUp.signUp);
 app.post('/afterSignUp', signUp.afterSignUp);
