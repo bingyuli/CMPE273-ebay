@@ -58,7 +58,15 @@ exports.afterSignIn = function(req, res) {
 						title : 'Ebay',
 						show : result
 					});
-				});				
+				});	
+				
+				var time = new Date();    //update login time
+				console.log("login time is: "+time);
+				var loginT = "update Person set Person_loginTime = '"+time+"' where Person_email = '"+req.param("email")+"'";
+				db.updateData(function(err, result) {
+					if (err)
+						throw err;
+				}, loginT);
 				
 			}else {
 				console.log("invalid login");

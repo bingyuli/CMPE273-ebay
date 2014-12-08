@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Person` (
   `Person_pass` VARCHAR(45) NULL DEFAULT NULL,
   `Person_buyActivate` TINYINT(1) NULL DEFAULT '1',
   `Person_sellActivate` TINYINT(1) NULL DEFAULT '1',
+  `Person_loginTime` VARCHAR(500) NULL DEFAULT NULL,
   PRIMARY KEY (`Person_id`),
   UNIQUE INDEX `Person_email_UNIQUE` (`Person_email` ASC),
   UNIQUE INDEX `Person_ssn_UNIQUE` (`Person_ssn` ASC))
