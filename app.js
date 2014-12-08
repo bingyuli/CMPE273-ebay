@@ -82,6 +82,7 @@ app.post('/sdeactivate', activate.sdeactivate);
 app.post('/sactivate', activate.sactivate);
 app.get('/signOut', index.signOut);
 app.get('/toHomepage', signIn.toHomepage);
+app.get('/bidHistory', user.showBidHistory);
 
 app.get('/toshoppingcart', shoppingcart.toshoppingcart);
 app.post('/checkout', shoppingcart.checkout);
