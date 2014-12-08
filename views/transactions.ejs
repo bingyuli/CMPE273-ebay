@@ -64,7 +64,7 @@
     			<h3 class="panel-title">Rate Seller</h3>
   			</div>
   			<div class="panel-body">
-    			<% if(result[0].TransHistory_rate== null && user.Customer_id == result[0].bid){%>
+    			<% if(result[0].TransHistory_rate== 0.0 && user.Person_id == result[0].bid){%>
 				 <form method="post" action= "/rate">
 				  Rate this product: <input type="number" name="rate" min= "1" max = "5"/><br/>
 				  <input type="hidden" name="id" value = "<%=id%>"/><br/>
