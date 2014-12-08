@@ -10,7 +10,7 @@ exports.searchProduct = function(req, res){
 	console.log(cat);
 	if(text.length > 0 && cat > 0 && cat < 9) {
 		var getinfo = "select * from Product p, Category c, Seller s, Person pe " +
-		  "Where p.Product_Category_id= c.Category_id and p.Product_seller_id=s.Seller_id and s.Seller_id=pe.Person_id and UPPER(p.Product_name)=UPPER('"+text+"') " +
+		  "Where p.Product_Category_id= c.Category_id and p.Product_seller_id=s.Seller_id and s.Person_id=pe.Person_id and UPPER(p.Product_name)=UPPER('"+text+"') " +
 		  "and c.Category_id = "+cat;
 		console.log("getinfo query::"+getinfo);
 		db.fetchData(function(err,result){
@@ -36,7 +36,7 @@ exports.searchProduct = function(req, res){
 	}else if(text.length > 0 && cat == 9) {
 		//var getinfo = "select * from product where UPPER(Product_name)=UPPER('"+text+"')";
 		var getinfo = "select * from Product p, Seller s, Person pe " +
-		  "Where p.Product_seller_id=s.Seller_id and s.Seller_id=pe.Person_id and UPPER(p.Product_name)=UPPER('"+text+"')";
+		  "Where p.Product_seller_id=s.Seller_id and s.Person_id=pe.Person_id and UPPER(p.Product_name)=UPPER('"+text+"')";
 		console.log("getinfo query::"+getinfo);
 		db.fetchData(function(err,result){
 			if(err) {
@@ -61,7 +61,7 @@ exports.searchProduct = function(req, res){
 		},getinfo);
 	}else if(text.length == 0 && cat == 9) {
 		var getinfo = "select * from Product p, Seller s, Person pe " +
-				"where p.Product_seller_id=s.Seller_id and s.Seller_id=pe.Person_id";
+				"where p.Product_seller_id=s.Seller_id and s.Person_id=pe.Person_id";
 		console.log("getinfo query::"+getinfo);
 		db.fetchData(function(err,result){
 			if(err) {
@@ -85,7 +85,7 @@ exports.searchProduct = function(req, res){
 		},getinfo);
 	}else if(text.length == 0 && cat > 0 && cat < 9){
 		var getinfo = "select * from Product p, Seller s, Person pe " +
-				"where p.Product_seller_id=s.Seller_id and s.Seller_id=pe.Person_id and p.Product_category_id = "+cat;
+				"where p.Product_seller_id=s.Seller_id and s.Person_id=pe.Person_id and p.Product_category_id = "+cat;
 		console.log("getinfo query::"+getinfo);
 		db.fetchData(function(err,result){
 			if(err){
